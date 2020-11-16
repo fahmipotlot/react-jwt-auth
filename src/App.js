@@ -13,6 +13,10 @@ import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 
+import AddArticle from "./components/articles/AddArticle";
+import Article from "./components/articles/Article";
+import ArticleList from "./components/articles/ArticleList";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -80,6 +84,17 @@ class App extends Component {
                 </Link>
               </li>
             )}
+
+            <li className="nav-item">
+              <Link to={"/articles"} className="nav-link">
+                Article
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/add"} className="nav-link">
+                Add
+              </Link>
+            </li>
           </div>
 
           {currentUser ? (
@@ -121,6 +136,9 @@ class App extends Component {
             <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} />
+            <Route exact path={["/", "/articles"]} component={ArticleList} />
+            <Route exact path="/add" component={AddArticle} />
+            <Route path="/article/:id" component={Article} />
           </Switch>
         </div>
       </div>
