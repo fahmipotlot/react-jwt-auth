@@ -101,6 +101,12 @@ const ArticlesList = () => {
             ))}
         </ul>
 
+        <Link
+          to={"/add"}
+          className="m-3 btn btn-sm btn-success"
+        >
+          Add
+        </Link>
         <button
           className="m-3 btn btn-sm btn-danger"
           onClick={removeAllArticles}

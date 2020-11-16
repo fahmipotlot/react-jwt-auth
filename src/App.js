@@ -90,11 +90,11 @@ class App extends Component {
                 Article
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to={"/add"} className="nav-link">
                 Add
               </Link>
-            </li>
+            </li> */}
           </div>
 
           {currentUser ? (

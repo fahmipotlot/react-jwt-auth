@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ArticleDataService from "../../services/ArticleService";
+import { Link } from "react-router-dom";
 
 const AddArticle = () => {
   const initialArticleState = {
@@ -10,6 +11,14 @@ const AddArticle = () => {
   };
   const [article, setArticle] = useState(initialArticleState);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(null)
+  const errorDiv = error 
+      ? <div className="form-group">
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div> 
+        </div> 
+      : '';
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -34,7 +43,11 @@ const AddArticle = () => {
         console.log(response.data);
       })
       .catch(e => {
-        console.log(e);
+        const resMessage = (e.response && e.response.data && e.response.data.message) || e.message || e.toString();
+        
+        console.log(resMessage);
+
+        setError(resMessage);
       });
   };
 
@@ -48,12 +61,20 @@ const AddArticle = () => {
       {submitted ? (
         <div>
           <h4>You submitted successfully!</h4>
+          <Link
+            to={"/articles"}
+            className="m-3 btn btn-success"
+          >
+            Article List
+          </Link>
           <button className="btn btn-success" onClick={newArticle}>
             Add
           </button>
         </div>
       ) : (
         <div>
+          {errorDiv}
+          
           <div className="form-group">
             <label htmlFor="title">Title</label>
             <input
@@ -83,6 +104,12 @@ const AddArticle = () => {
           <button onClick={saveArticle} className="btn btn-success">
             Submit
           </button>
+          <Link
+            to={"/articles"}
+            className="m-3 btn btn-success"
+          >
+            Back
+          </Link>
         </div>
       )}
     </div>

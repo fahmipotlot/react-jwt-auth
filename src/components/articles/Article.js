@@ -10,6 +10,14 @@ const Article = props => {
   };
   const [currentArticle, setCurrentArticle] = useState(initialArticleState);
   const [message, setMessage] = useState("");
+  const [error, setError] = useState(null)
+  const errorDiv = error 
+      ? <div className="form-group">
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div> 
+        </div> 
+      : '';
 
   const getArticle = id => {
     ArticleDataService.get(id)
@@ -43,9 +51,14 @@ const Article = props => {
       .then(response => {
         setCurrentArticle({ ...currentArticle, published: status });
         console.log(response.data);
+        props.history.push("/articles");
       })
       .catch(e => {
-        console.log(e);
+        const resMessage = (e.response && e.response.data && e.response.data.message) || e.message || e.toString();
+        
+        console.log(resMessage);
+
+        setError(resMessage);
       });
   };
 
@@ -54,9 +67,14 @@ const Article = props => {
       .then(response => {
         console.log(response.data);
         setMessage("The article was updated successfully!");
+        props.history.push("/articles");
       })
       .catch(e => {
-        console.log(e);
+        const resMessage = (e.response && e.response.data && e.response.data.message) || e.message || e.toString();
+        
+        console.log(resMessage);
+
+        setError(resMessage);
       });
   };
 
@@ -67,7 +85,11 @@ const Article = props => {
         props.history.push("/articles");
       })
       .catch(e => {
-        console.log(e);
+        const resMessage = (e.response && e.response.data && e.response.data.message) || e.message || e.toString();
+        
+        console.log(resMessage);
+
+        setError(resMessage);
       });
   };
 
@@ -77,6 +99,7 @@ const Article = props => {
         <div className="edit-form">
           <h4>Article</h4>
           <form>
+            {errorDiv}
             <div className="form-group">
               <label htmlFor="title">Title</label>
               <input
