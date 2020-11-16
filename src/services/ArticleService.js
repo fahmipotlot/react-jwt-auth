@@ -1,9 +1,9 @@
 import http from "../http-common";
 import authHeader from './auth-header';
 
-const getAll = () => {
+const getAll = (params) => {
   // return axios.get(API_URL + 'user', { headers: authHeader() });
-  return http.get("/articles", { headers: authHeader() });
+  return http.get("/articles", { params }, { headers: authHeader() });
 };
 
 const get = id => {
