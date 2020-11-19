@@ -1,25 +1,17 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import UserService from "../services/user.service";
 
-export default class Home extends Component {
-  constructor(props) {
-    super(props);
+const Home = () => {
+  const [content, setContent] = useState({content: ""});
 
-    this.state = {
-      content: ""
-    };
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     UserService.getPublicContent().then(
       response => {
-        this.setState({
-          content: response.data
-        });
+        setContent({content: response.data});
       },
       error => {
-        this.setState({
+        setContent({
           content:
             (error.response && error.response.data) ||
             error.message ||
@@ -27,15 +19,15 @@ export default class Home extends Component {
         });
       }
     );
-  }
+  }, []);
 
-  render() {
-    return (
-      <div className="container">
-        <header className="jumbotron">
-          <h3>{this.state.content}</h3>
-        </header>
-      </div>
-    );
-  }
+  return (
+    <div className="container">
+      <header className="jumbotron">
+        <h3>{content.content}</h3>
+      </header>
+    </div>
+  );
 }
+
+export default Home

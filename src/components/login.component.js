@@ -15,7 +15,6 @@ const required = value => {
   }
 };
 
-
 const Login = (props) => {
   const form = useRef();
   const checkBtn = useRef();

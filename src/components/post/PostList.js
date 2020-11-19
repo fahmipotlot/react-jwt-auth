@@ -57,7 +57,7 @@ const PostList = () => {
       {isError && <p> mon maap ada gangguan bos {oError}</p>}
       {news.map((item, index) => (
         <div className="card" key={index} style={ { width: '300px' } }>
-          <img className="card-img-top" src={logo} alt="Card image" />
+          <img className="card-img-top" src={logo} alt="post" />
           <div className="card-body">
             <h4 className="card-title">{item.title}</h4>
             <p className="card-text">{item.body.substring(0, 100)}</p>
